@@ -1,0 +1,5 @@
+{
+  "install": "npm install",
+  "start": "npm run build && node server/index.mjs",
+  "watch": false
+}
