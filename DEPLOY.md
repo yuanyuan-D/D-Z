@@ -1,47 +1,54 @@
-# 电脑关机后仍可使用（云端部署）
+# 免费部署（可不绑信用卡）
 
-电脑关机后，家里的服务会停。要把网站放到云端，才能随时用手机打开。
+Render 免费套餐现在常会要求添加信用卡做身份验证（预授权约 1 美元，一般不扣费）。  
+如果你**不想绑卡**，用下面任一方案。
 
-推荐用免费的 [Render](https://render.com)，大约 5–10 分钟。
+---
 
-## 步骤
+## 方案 A：Hugging Face Spaces（推荐，免费、不绑卡）
 
-### 1. 把代码放到 GitHub
+1. 打开 https://huggingface.co/join 注册（可用邮箱）
+2. 打开 https://huggingface.co/new-space
+3. 填写：
+   - Space name：例如 `family-menu`
+   - SDK：选 **Docker**
+   - Visibility：Public
+4. 创建后，在 Space 的 **Files** 里点 **Add file** → **Upload files**  
+   或者用 Git 把本仓库导入（Settings → 连接 GitHub 仓库 `yuanyuan-D/D-Z`）
+5. 若用 GitHub 导入：把仓库根目录的 `Dockerfile` 保留即可；可选把 `README_HF.md` 内容作为 Space 的 `README.md` 开头配置
+6. 等待 Build 完成
+7. 打开 Space 页面，复制公网链接（形如 `https://xxxx.hf.space`）  
+   **任意手机、电脑关机都能用**
 
-1. 打开 https://github.com/new 新建一个仓库（可设为 Private）
-2. 在本机项目目录执行（把 `你的用户名/仓库名` 换成你的）：
+> 注意：免费 Space 若长时间无人访问可能休眠，再次打开会稍慢。
 
+---
+
+## 方案 B：Glitch（免费、不绑卡）
+
+1. 打开 https://glitch.com 注册
+2. **New project** → **Import from GitHub**
+3. 填入：`yuanyuan-D/D-Z`
+4. 在终端执行：
 ```bash
-cd /home/luna/code/family-menu
-git add .
-git commit -m "家庭菜单云端部署"
-git branch -M main
-git remote add origin https://github.com/你的用户名/仓库名.git
-git push -u origin main
+npm install
+npm run build
+npm start
 ```
+5. 点 **Share** 获取公网链接
 
-### 2. 在 Render 创建网站
+---
 
-1. 打开 https://dashboard.render.com 注册/登录（可用 GitHub 账号）
-2. 点 **New +** → **Blueprint**
-3. 选择刚才的 GitHub 仓库
-4. Render 会读取项目里的 `render.yaml`，确认后点创建
-5. 等待 Build 完成（几分钟）
+## 方案 C：继续用 Render（免费但不绑卡过不了）
 
-### 3. 用手机打开
+若你愿意绑卡验证：
 
-部署成功后，Render 会给出地址，例如：
+1. 填卡完成验证（通常不扣费）
+2. New + → Blueprint → 选 `yuanyuan-D/D-Z`
+3. 部署后得到 `https://xxxx.onrender.com`
 
-`https://family-menu-xxxx.onrender.com`
+---
 
-把这个链接发给家人即可。  
-**任意地点、任意手机、电脑关机都能用。**
+## 代码仓库
 
-## 注意
-
-- 免费套餐若一段时间没人访问，服务会休眠；下次打开可能要等 30 秒左右醒来
-- 电脑上的 `localhost` / 临时隧道链接，关机后都会失效，请改用上面的云端链接
-
-## 需要我代操作时
-
-把你的 **GitHub 仓库地址**发给我（或完成第 1 步后告诉我），我可以继续帮你核对部署配置。
+https://github.com/yuanyuan-D/D-Z
