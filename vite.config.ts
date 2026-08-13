@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
+  // GitHub Pages 项目站：构建时设置 VITE_BASE=/D-Z/
+  base: process.env.VITE_BASE || '/',
   plugins: [react()],
   server: {
     host: true,
