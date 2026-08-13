@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>小董和小赵的备婚计划</title>
+    <meta name="description" content="小董和小赵的备婚计划：2027年5月婚礼任务清单、采购、预算与须知。" />
+    <meta name="theme-color" content="#17221c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="小董和小赵的备婚计划" />
+    <meta property="og:title" content="小董和小赵的备婚计划" />
+    <meta property="og:description" content="九个月备婚清单，手机也能勾选推进。" />
+    <meta property="og:type" content="website" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="./assets/icon-192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand-mark" href="#top">小董和小赵的备婚计划</a>
+      <div class="topbar-right">
+        <span class="sync-status" id="sync-status" aria-live="polite">同步中</span>
+        <span class="save-status" id="save-status" aria-live="polite">已保存</span>
+        <button class="save-btn" id="save-btn" type="button">保存</button>
+        <button class="share-btn" id="share-btn" type="button" aria-label="分享到手机">分享</button>
+        <nav class="top-nav desktop-nav" aria-label="主导航">
+          <button class="nav-btn active" data-view="overview">总览</button>
+          <button class="nav-btn" data-view="tasks">任务</button>
+          <button class="nav-btn" data-view="shop">采购</button>
+          <button class="nav-btn" data-view="weight">减重</button>
+          <button class="nav-btn" data-view="budget">预算</button>
+          <button class="nav-btn" data-view="tips">须知</button>
+        </nav>
+      </div>
+    </header>
+    <div class="cloud-setup-banner" id="cloud-setup-banner" hidden>
+      <strong>还需一步：创建云端表</strong>
+      <p data-cloud-err></p>
+      <p>
+        打开
+        <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Supabase Dashboard</a>
+        → SQL Editor，执行本项目 <code>supabase/schema.sql</code> 后刷新本页。完成后手机可在电脑关机时同步。
+      </p>
+    </div>
+    <div class="toast" id="toast" hidden></div>
+
+    <main id="top">
+      <section class="hero" aria-label="婚礼主视觉">
+        <div class="hero-media" role="img" aria-label="婚礼花艺与仪式氛围"></div>
+        <div class="hero-veil"></div>
+        <div class="hero-content">
+          <p class="hero-brand">小董和小赵的备婚计划 · 2027.05</p>
+          <h1>把九个月备婚，收进一份可勾选的计划里</h1>
+          <p class="hero-support">从 2026 年 8 月到婚礼周，按阶段推进决策、预订、采购与冲刺。</p>
+          <div class="hero-actions">
+            <button class="btn primary" id="cta-tasks">开始勾选任务</button>
+            <button class="btn ghost" id="cta-share">分享给手机</button>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <strong id="hero-countdown">—</strong>
+              <span>天倒计时</span>
+            </div>
+            <div>
+              <strong id="hero-progress">0%</strong>
+              <span>任务完成</span>
+            </div>
+            <div>
+              <strong id="hero-done">0/0</strong>
+              <span>已完成项</span>
+            </div>
+          </div>
+          <div class="hero-track">
+            <div class="bar" id="hero-progress-bar"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace" id="workspace">
+        <div class="workspace-inner">
+          <div id="panel"></div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="mobile-tabbar" aria-label="手机导航">
+      <button class="tab-btn active" data-view="overview">
+        <span class="tab-icon">⌂</span>
+        <span>总览</span>
+      </button>
+      <button class="tab-btn" data-view="tasks">
+        <span class="tab-icon">☰</span>
+        <span>任务</span>
+      </button>
+      <button class="tab-btn" data-view="shop">
+        <span class="tab-icon">▣</span>
+        <span>采购</span>
+      </button>
+      <button class="tab-btn" data-view="weight">
+        <span class="tab-icon">↗</span>
+        <span>减重</span>
+      </button>
+      <button class="tab-btn" data-view="budget">
+        <span class="tab-icon">¥</span>
+        <span>预算</span>
+      </button>
+      <button class="tab-btn" data-view="tips">
+        <span class="tab-icon">!</span>
+        <span>须知</span>
+      </button>
+    </nav>
+
+    <div class="sheet-backdrop" id="share-backdrop" hidden></div>
+    <aside class="share-sheet" id="share-sheet" hidden aria-label="分享面板">
+      <div class="sheet-handle"></div>
+      <h2>分享到手机</h2>
+      <p class="sheet-desc">同 Wi‑Fi 扫码打开，或复制链接发给对方。</p>
+      <div class="qr-wrap">
+        <img id="share-qr" alt="分享二维码" width="180" height="180" />
+      </div>
+      <p class="share-url" id="share-url"></p>
+      <div class="sheet-actions">
+        <button class="btn primary" id="copy-link" type="button">复制链接</button>
+        <button class="btn ghost dark" id="native-share" type="button">系统分享</button>
+      </div>
+      <p class="sheet-tip" id="share-tip">手机与电脑需在同一局域网；公网链接需开启隧道后更新。</p>
+    </aside>
+
+    <div class="sheet-backdrop" id="edit-backdrop" hidden></div>
+    <aside class="share-sheet edit-sheet" id="edit-sheet" hidden aria-label="编辑面板">
+      <div class="sheet-handle"></div>
+      <h2 id="edit-title">编辑</h2>
+      <div id="edit-fields" class="edit-fields"></div>
+      <div class="sheet-actions">
+        <button class="btn ghost dark" id="edit-cancel" type="button">取消</button>
+        <button class="btn primary" id="edit-save" type="button">确定</button>
+      </div>
+    </aside>
+
+    <footer class="site-footer">
+      <p>内容来源：《2027年5月婚礼 · 完整备婚方案》 · 勾选进度保存在本机浏览器</p>
+      <p class="muted">添加到主屏幕后可像 App 一样打开</p>
+    </footer>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
