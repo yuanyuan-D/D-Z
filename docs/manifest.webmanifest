@@ -1,0 +1,25 @@
+{
+  "name": "小董和小赵的家",
+  "short_name": "家厨菜单",
+  "description": "家庭菜单点单 · 餐厅与厨房实时同步",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#14261c",
+  "theme_color": "#1f4d3a",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
