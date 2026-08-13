@@ -1,22 +1,63 @@
-# 免费部署（不绑卡、不付费）
+# 免费长期部署（不买服务器、不绑卡）
 
-Glitch 已停服；Hugging Face Docker 要付费；Render 常要绑卡。  
-请用 **Zeabur**（免费、一般不需要信用卡）：
+你截图里的 Zeabur「购买新服务器」**不要买**——那是付费 VPS。  
+本方案改用：**Supabase（免费云端数据库+实时同步）+ GitHub Pages（免费静态网页）**。  
+手机任意网络都能用，家里电脑关机也没关系。
 
-## Zeabur 部署步骤
+---
 
-1. 打开 https://zeabur.com 注册/登录（可用 GitHub 登录）
-2. 点 **Create Project** 新建项目
-3. 点 **Add Service** → **Git** → 选择仓库 **`yuanyuan-D/D-Z`**
-4. Zeabur 会自动识别 Node 项目并部署
-5. 部署完成后，在服务里打开 **Networking / Domain**，生成公网域名  
-   类似：`https://xxxx.zeabur.app`
-6. 手机打开这个域名即可（任意网络、电脑关机也能用）
+## 一、创建 Supabase（约 3 分钟）
 
-若构建失败，在服务设置里确认：
-- **Root Directory**：仓库根目录
-- **Build Command**：`npm ci && npm run build`（或留空让它自动检测）
-- **Start Command**：`node server/index.mjs`
+1. 打开 https://supabase.com 用 GitHub 登录，新建项目（Free 计划）
+2. 进 **SQL Editor** → New query，把仓库里 `supabase/schema.sql` **整段粘贴执行**
+3. 打开 **Project Settings → API**，复制：
+   - Project URL
+   - `anon` `public` key
+
+---
+
+## 二、在本机写入密钥并验证
+
+在项目根目录创建 `.env.local`（已在 `.gitignore`，不会提交）：
+
+```bash
+VITE_SUPABASE_URL=https://xxxx.supabase.co
+VITE_SUPABASE_ANON_KEY=你的anon密钥
+```
+
+本地测试：
+
+```bash
+npm run dev:web
+```
+
+有云端配置时**不需要**再开本地 `server`，多开几个浏览器窗口应能互相看到点菜。
+
+---
+
+## 三、发布到 GitHub Pages
+
+1. 仓库 Settings → Pages → Source 选 **GitHub Actions**
+2. 仓库 Settings → Secrets and variables → Actions，添加：
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+3. 推送代码到 `main` 后，Actions 会自动构建并发布  
+4. 页面地址类似：  
+   **https://yuanyuan-D.github.io/D-Z/**
+
+---
+
+## 四、本地开发（可选，无云端）
+
+不配 Supabase 时，仍可用原来的本机 WebSocket：
+
+```bash
+npm run dev
+```
+
+同一 WiFi / 隧道场景下可用；要「电脑关机也能用」请走上面的 Supabase + Pages。
+
+---
 
 ## 代码仓库
 
